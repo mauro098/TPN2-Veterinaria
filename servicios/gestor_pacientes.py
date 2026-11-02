@@ -68,8 +68,5 @@ class GestorPacientes:
                 self.lista_pacientes.remove(paciente)
                 print("¡Paciente eliminado de la lista!")
                 return True
-  print("No se encontró un paciente con ese código.")
-        return False
-
-              
         print("No se encontró un paciente con ese código.")
+        return False
