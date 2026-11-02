@@ -48,3 +48,6 @@ class Paciente:
             raise ValueError("El nombre del dueño no puede estar vacío")
         else:
             self.__duenio = nuevo_duenio.strip()
+
+    def __str__(self):
+        return f"[{self.codigo}] {self.nombre} | {self.especie} - {self.raza} | {self.edad} años | Dueño: {self.duenio}"
