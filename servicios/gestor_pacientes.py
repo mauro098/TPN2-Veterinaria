@@ -6,36 +6,36 @@ class GestorPacientes:
         self.cargar_datos_prueba() 
 
     def cargar_datos_prueba(self):
-        p1 = Paciente("P001", "Firulais", "Perro", "Caniche", 3, "Carlos")
-        p2 = Paciente("P002", "Michi", "Gato", "Siamés", 2, "Ana")
-        p3 = Paciente("P003", "Roco", "Perro", "Boxer", 5, "Marcela")
-        p4 = Paciente("P004", "Luna", "Gato", "Persa", 4, "Lucas")
-        p5 = Paciente("P005", "Piolín", "Ave", "Canario", 1, "Sofía")
-        p6 = Paciente("P006", "Boby", "Perro", "Golden Retriever", 6, "Jorge")
-        p7 = Paciente("P007", "Simba", "Gato", "Común Europeo", 3, "Valeria")
-        p8 = Paciente("P008", "Thor", "Perro", "Ovejero Alemán", 4, "Martín")
-        p9 = Paciente("P009", "Lola", "Perro", "Beagle", 2, "Camila")
-        p10 = Paciente("P010", "Manchas", "Gato", "Angora", 5, "Esteban")
-        p11 = Paciente("P011", "Kira", "Perro", "Pitbull", 3, "Florencia")
-        p12 = Paciente("P012", "Nala", "Gato", "Siamés", 1, "Gonzalo")
-        p13 = Paciente("P013", "Coco", "Ave", "Loro", 7, "Agustina")
-        p14 = Paciente("P014", "Zeus", "Perro", "Doberman", 4, "Federico")
-        p15 = Paciente("P015", "Nina", "Gato", "Maine Coon", 2, "Lucía")
-        p16 = Paciente("P016", "Bruno", "Perro", "Bulldog Francés", 3, "Diego")
-        p17 = Paciente("P017", "Cleo", "Gato", "Sphynx", 4, "Mariana")
-        p18 = Paciente("P018", "Toby", "Perro", "Labrador", 5, "Pablo")
-        p19 = Paciente("P019", "Pelusa", "Gato", "Común", 6, "Carla")
-        p20 = Paciente("P020", "Rocky", "Perro", "Pitbull", 2, "Hernán")
-        p21 = Paciente("P021", "Princesa", "Perro", "Caniche", 8, "Romina")
-        p22 = Paciente("P022", "Tom", "Gato", "Común", 3, "Julián")
-        p23 = Paciente("P023", "Baco", "Perro", "San Bernardo", 5, "Natalia")
-        p24 = Paciente("P024", "Mora", "Perro", "Cocker", 4, "Facundo")
-        p25 = Paciente("P025", "Pancho", "Ave", "Cacatúa", 2, "Victoria")
-        p26 = Paciente("P026", "Gordo", "Gato", "Persa", 6, "Ezequiel")
-        p27 = Paciente("P027", "Sultán", "Perro", "Mastín", 7, "Yamila")
-        p28 = Paciente("P028", "Milka", "Gato", "Angora", 1, "Leandro")
-        p29 = Paciente("P029", "Tyson", "Perro", "Boxer", 4, "Sabrina")
-        p30 = Paciente("P030", "Duque", "Perro", "vejero Belga", 5, "Emiliano")
+        p1 = Paciente("001", "Firulais", "Perro", "Caniche", 3, "Carlos")
+        p2 = Paciente("002", "Michi", "Gato", "Siamés", 2, "Ana")
+        p3 = Paciente("003", "Roco", "Perro", "Boxer", 5, "Marcela")
+        p4 = Paciente("004", "Luna", "Gato", "Persa", 4, "Lucas")
+        p5 = Paciente("005", "Piolín", "Ave", "Canario", 1, "Sofía")
+        p6 = Paciente("006", "Boby", "Perro", "Golden Retriever", 6, "Jorge")
+        p7 = Paciente("007", "Simba", "Gato", "Común Europeo", 3, "Valeria")
+        p8 = Paciente("008", "Thor", "Perro", "Ovejero Alemán", 4, "Martín")
+        p9 = Paciente("009", "Lola", "Perro", "Beagle", 2, "Camila")
+        p10 = Paciente("010", "Manchas", "Gato", "Angora", 5, "Esteban")
+        p11 = Paciente("011", "Kira", "Perro", "Pitbull", 3, "Florencia")
+        p12 = Paciente("012", "Nala", "Gato", "Siamés", 1, "Gonzalo")
+        p13 = Paciente("013", "Coco", "Ave", "Loro", 7, "Agustina")
+        p14 = Paciente("014", "Zeus", "Perro", "Doberman", 4, "Federico")
+        p15 = Paciente("015", "Nina", "Gato", "Maine Coon", 2, "Lucía")
+        p16 = Paciente("016", "Bruno", "Perro", "Bulldog Francés", 3, "Diego")
+        p17 = Paciente("017", "Cleo", "Gato", "Sphynx", 4, "Mariana")
+        p18 = Paciente("018", "Toby", "Perro", "Labrador", 5, "Pablo")
+        p19 = Paciente("019", "Pelusa", "Gato", "Común", 6, "Carla")
+        p20 = Paciente("020", "Rocky", "Perro", "Pitbull", 2, "Hernán")
+        p21 = Paciente("021", "Princesa", "Perro", "Caniche", 8, "Romina")
+        p22 = Paciente("022", "Tom", "Gato", "Común", 3, "Julián")
+        p23 = Paciente("023", "Baco", "Perro", "San Bernardo", 5, "Natalia")
+        p24 = Paciente("024", "Mora", "Perro", "Cocker", 4, "Facundo")
+        p25 = Paciente("025", "Pancho", "Ave", "Cacatúa", 2, "Victoria")
+        p26 = Paciente("026", "Gordo", "Gato", "Persa", 6, "Ezequiel")
+        p27 = Paciente("027", "Sultán", "Perro", "Mastín", 7, "Yamila")
+        p28 = Paciente("028", "Milka", "Gato", "Angora", 1, "Leandro")
+        p29 = Paciente("029", "Tyson", "Perro", "Boxer", 4, "Sabrina")
+        p30 = Paciente("030", "Duque", "Perro", "vejero Belga", 5, "Emiliano")
 
         lista_temporal = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, 
                           p11, p12, p13, p14, p15, p16, p17, p18, p19, p20, 
@@ -46,6 +46,11 @@ class GestorPacientes:
 
     def insertar_paciente(self, codigo, nombre, especie, raza, edad, duenio):
         """Agrega un nuevo paciente a la lista."""
+        # Generar un código único para el nuevo paciente
+        if self.lista_pacientes:
+            codigo = f"{len(self.lista_pacientes) + 1:03d}"
+        else:
+            codigo = "001"
         nuevo = Paciente(codigo, nombre, especie, raza, edad, duenio)
         self.lista_pacientes.append(nuevo)
         print(f"¡Paciente {nombre} agregado con éxito!")
