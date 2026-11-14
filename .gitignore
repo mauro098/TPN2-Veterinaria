@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Base de datos SQLite (evitar versionar datos sensibles o generados)
+datos/veterinaria.db
+
+# Distribución
+dist/
+build/
+*.egg-info/
+
+# Cobertura
+.coverage
+htmlcov/
+.pytest_cache/

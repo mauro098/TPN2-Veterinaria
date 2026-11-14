@@ -60,3 +60,20 @@ class ArbolBST:
             self._inorden(nodo.izquierda, lista_ordenada)
             lista_ordenada.append(nodo.paciente)
             self._inorden(nodo.derecha, lista_ordenada)
+
+    @classmethod
+    def construir_balanzado(cls, pacientes_ordenados):
+        """Construye un BST balanceado a partir de una lista ordenada de pacientes."""
+        arbol = cls()
+
+        def insertar_rango(inicio, fin):
+            if inicio > fin:
+                return
+            medio = (inicio + fin) // 2
+            p = pacientes_ordenados[medio]
+            arbol.insertar(p.codigo, p)
+            insertar_rango(inicio, medio - 1)
+            insertar_rango(medio + 1, fin)
+
+        insertar_rango(0, len(pacientes_ordenados) - 1)
+        return arbol

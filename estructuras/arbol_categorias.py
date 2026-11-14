@@ -90,6 +90,6 @@ def agregar_animales(raiz: CatVet, listado: list):
     for paciente in listado:
         nodo = raiz.buscar_categoria(paciente.categoria)
         if nodo is not None:
-            nodo.elementos.append(libro)
+            nodo.elementos.append(paciente)
         else:
             raiz.elementos.append(paciente)

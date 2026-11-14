@@ -19,7 +19,7 @@ def buscar_por_nombre(lista_pacientes: list, nombre: str) -> tuple:
             return (paciente, contador)
     return (None, contador)
 
-# Función búsqueda por dueño, devuelve el paciente y la cantidad de comparaciones
+# Función búsqueda por dueño, devuelve la lista de pacientes del dueño y la cantidad de comparaciones
 def buscar_por_duenio(lista_pacientes: list, duenio: str)-> tuple:
     contador = 0
     # Guarda todas las mascotas del dueño
@@ -29,6 +29,5 @@ def buscar_por_duenio(lista_pacientes: list, duenio: str)-> tuple:
         contador += 1
         if paciente.duenio.lower() == duenio_salida:
             mascotas.append(paciente)
-    if len(mascotas) > 0:
-        return (mascotas, contador)
-    return (None, contador)
+    # Siempre retorna una lista (vacía si no hay resultados) para evitar chequeos de None
+    return (mascotas, contador)

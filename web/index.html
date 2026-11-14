@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veterinaria — Sistema Médico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Saltar al contenido</a>
+  <nav class="navbar">
+    <div class="navbar__brand">
+      <i class="fas fa-paw" aria-hidden="true"></i>
+      <span>Veterinaria</span>
+    </div>
+    <div class="navbar__controls">
+      <button class="btn-icon" id="btnMenu" title="Menú" aria-label="Menú" aria-expanded="false" aria-controls="mobileTabs">
+        <i class="fas fa-bars" aria-hidden="true"></i>
+      </button>
+      <button class="btn-icon" id="btnTheme" title="Cambiar tema">
+        <i class="fas fa-moon" aria-hidden="true"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobileTabs" class="mobile-tabs">
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="catalog">
+        <i class="fas fa-list" aria-hidden="true"></i> Catálogo
+      </button>
+      <button class="tab-btn" data-tab="search-code">
+        <i class="fas fa-hashtag" aria-hidden="true"></i> Buscar por Código
+      </button>
+      <button class="tab-btn" data-tab="search-name">
+        <i class="fas fa-user-md" aria-hidden="true"></i> Buscar por Paciente
+      </button>
+      <button class="tab-btn" data-tab="search-owner">
+        <i class="fas fa-user-tie" aria-hidden="true"></i> Buscar por Dueño
+      </button>
+      <button class="tab-btn" data-tab="vacunas">
+        <i class="fas fa-syringe" aria-hidden="true"></i> Vacunas Pendientes
+      </button>
+      <button class="tab-btn" data-tab="turno">
+        <i class="fas fa-calendar-check" aria-hidden="true"></i> Sacar Turno
+      </button>
+    </div>
+  </div>
+
+  <div class="container">
+    <header class="page-header">
+      <h1><i class="fas fa-cat" aria-hidden="true"></i> Gestión de Pacientes</h1>
+      <p class="page-subtitle">Consulta, busca y registra pacientes de la clínica veterinaria.</p>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="catalog">
+        <i class="fas fa-list" aria-hidden="true"></i> Catálogo
+      </button>
+      <button class="tab-btn" data-tab="search-code">
+        <i class="fas fa-hashtag" aria-hidden="true"></i> Buscar por Código
+      </button>
+      <button class="tab-btn" data-tab="search-name">
+        <i class="fas fa-user-md" aria-hidden="true"></i> Buscar por Paciente
+      </button>
+      <button class="tab-btn" data-tab="search-owner">
+        <i class="fas fa-user-tie" aria-hidden="true"></i> Buscar por Dueño
+      </button>
+      <button class="tab-btn" data-tab="vacunas">
+        <i class="fas fa-syringe" aria-hidden="true"></i> Vacunas Pendientes
+      </button>
+      <button class="tab-btn" data-tab="turno">
+        <i class="fas fa-calendar-check" aria-hidden="true"></i> Sacar Turno
+      </button>
+    </div>
+
+    <main class="tab-content" id="main">
+      <!-- Catálogo -->
+      <section id="tab-catalog" class="tab-panel active reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-folder-open" aria-hidden="true"></i> Catálogo General</h3>
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+              <button class="btn btn-primary btn-reg" type="button" onclick="window.abrirRegistro()">
+                <i class="fas fa-user-plus" aria-hidden="true"></i> Registrar Paciente
+              </button>
+              <span class="badge" id="catalogCount">—</span>
+            </div>
+          </div>
+          <div class="card__body">
+            <div class="skeleton-list" id="catalogSkeleton">
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+            </div>
+            <div class="table-wrap" id="catalogTableWrap" style="display:none;">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Paciente</th>
+                    <th>Especie</th>
+                    <th>Raza</th>
+                    <th>Dueño</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="catalogBody"></tbody>
+              </table>
+            </div>
+            <div id="catalogEmpty" class="empty-state" style="display:none;">
+              <div class="empty-state__icon"><i class="fas fa-paw" aria-hidden="true"></i></div>
+              <h3>No hay pacientes registrados aún</h3>
+              <p>Comienza registrando a tu primer paciente de la clínica.</p>
+              <button class="btn btn-primary" type="button" onclick="window.abrirRegistro()">
+                <i class="fas fa-user-plus" aria-hidden="true"></i> Registrar primer paciente
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buscar por Código -->
+      <section id="tab-search-code" class="tab-panel reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-hashtag" aria-hidden="true"></i> Búsqueda por Código (Entero)</h3>
+          </div>
+          <div class="card__body">
+            <div class="search-form">
+              <label class="input-label">Código del paciente</label>
+              <div class="input-group">
+                <span class="input-addon">#</span>
+                <input type="text" id="codeInput" placeholder="Ej: 123" maxlength="10" />
+                <button class="btn btn-primary" id="btnSearchCode">
+                  <i class="fas fa-search" aria-hidden="true"></i> Buscar
+                </button>
+              </div>
+              <small class="form-hint">Solo números enteros positivos.</small>
+            </div>
+            <div id="codeResult" class="result-card" style="display:none;">
+              <div class="result-card__header">
+                <h4 id="codeResultName"></h4>
+                <span class="badge badge-success" id="codeResultStatus">Encontrado</span>
+              </div>
+              <div class="result-card__body">
+                <p><strong>Código:</strong> <span id="codeResultCode"></span></p>
+                <p><strong>Especie:</strong> <span id="codeResultSpecies"></span></p>
+                <p><strong>Raza:</strong> <span id="codeResultBreed"></span></p>
+                <p><strong>Dueño:</strong> <span id="codeResultOwner"></span></p>
+                <p><strong>Teléfono:</strong> <span id="codeResultPhone"></span></p>
+              </div>
+            </div>
+            <!-- Comparativa integrada: Lista vs BST dentro de la búsqueda -->
+            <div id="codeBenchmark" class="search-benchmark" style="display:none;">
+              <h4><i class="fas fa-chart-line" aria-hidden="true"></i> Comparativa: Lista vs Árbol BST</h4>
+              <div class="bench-comparison">
+                <div class="bench-item bench-item--lista">
+                  <span class="bench-label">Lista lineal O(n)</span>
+                  <span class="bench-value" id="benchCodeLista">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--bst">
+                  <span class="bench-label">Árbol BST O(log n)</span>
+                  <span class="bench-value" id="benchCodeBst">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--verdict">
+                  <span class="bench-label">Más eficiente</span>
+                  <span class="bench-value verdict-text" id="benchCodeVerdict">—</span>
+                  <span class="bench-sub" id="benchCodeAhorro"></span>
+                </div>
+              </div>
+            </div>
+            <div id="codeError" class="alert alert-error" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buscar por Nombre del Paciente -->
+      <section id="tab-search-name" class="tab-panel reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-user-md" aria-hidden="true"></i> Búsqueda por Nombre del Paciente</h3>
+          </div>
+          <div class="card__body">
+            <div class="search-form">
+              <label class="input-label">Nombre del paciente</label>
+              <div class="input-group">
+                <input type="text" id="nameInput" placeholder="Ej: Toby" />
+                <button class="btn btn-primary" id="btnSearchName">
+                  <i class="fas fa-search" aria-hidden="true"></i> Buscar
+                </button>
+              </div>
+              <small class="form-hint">Consulta general por nombre.</small>
+            </div>
+            <div id="nameResult" class="result-list" style="display:none;"></div>
+            <!-- Comparativa integrada: Lista vs BST dentro de búsqueda por nombre -->
+            <div id="nameBenchmark" class="search-benchmark" style="display:none;">
+              <h4><i class="fas fa-chart-line" aria-hidden="true"></i> Comparativa: Lista vs Árbol BST</h4>
+              <div class="bench-comparison">
+                <div class="bench-item bench-item--lista">
+                  <span class="bench-label">Lista lineal O(n)</span>
+                  <span class="bench-value" id="benchNameLista">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--bst">
+                  <span class="bench-label">Árbol BST O(log n)</span>
+                  <span class="bench-value" id="benchNameBst">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--verdict">
+                  <span class="bench-label">Más eficiente</span>
+                  <span class="bench-value verdict-text" id="benchNameVerdict">—</span>
+                  <span class="bench-sub" id="benchNameAhorro"></span>
+                </div>
+              </div>
+            </div>
+            <div id="nameError" class="alert alert-error" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buscar por Nombre del Dueño -->
+      <section id="tab-search-owner" class="tab-panel reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-user-tie" aria-hidden="true"></i> Búsqueda por Nombre del Dueño</h3>
+          </div>
+          <div class="card__body">
+            <div class="search-form">
+              <label class="input-label">Nombre del dueño</label>
+              <div class="input-group">
+                <input type="text" id="ownerInput" placeholder="Ej: María López" />
+                <button class="btn btn-primary" id="btnSearchOwner">
+                  <i class="fas fa-search" aria-hidden="true"></i> Buscar
+                </button>
+              </div>
+              <small class="form-hint">Consulta general por dueño.</small>
+            </div>
+            <div id="ownerResult" class="result-list" style="display:none;"></div>
+            <!-- Comparativa integrada: Lista vs BST dentro de búsqueda por dueño -->
+            <div id="ownerBenchmark" class="search-benchmark" style="display:none;">
+              <h4><i class="fas fa-chart-line" aria-hidden="true"></i> Comparativa: Lista vs Árbol BST</h4>
+              <div class="bench-comparison">
+                <div class="bench-item bench-item--lista">
+                  <span class="bench-label">Lista lineal O(n)</span>
+                  <span class="bench-value" id="benchOwnerLista">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--bst">
+                  <span class="bench-label">Árbol BST O(log n)</span>
+                  <span class="bench-value" id="benchOwnerBst">—</span>
+                  <span class="bench-sub">comparaciones</span>
+                </div>
+                <div class="bench-item bench-item--verdict">
+                  <span class="bench-label">Más eficiente</span>
+                  <span class="bench-value verdict-text" id="benchOwnerVerdict">—</span>
+                  <span class="bench-sub" id="benchOwnerAhorro"></span>
+                </div>
+              </div>
+            </div>
+            <div id="ownerError" class="alert alert-error" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vacunas y Controles Pendientes -->
+      <section id="tab-vacunas" class="tab-panel reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-syringe" aria-hidden="true"></i> Vacunas, Controles y Turnos Pendientes</h3>
+          </div>
+          <div class="card__body">
+            <div id="vacunasSkeleton" class="skeleton-list">
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+              <div class="skeleton-item"></div>
+            </div>
+            <div id="vacunasList" style="display:none;">
+              <div class="vacunas-grid">
+                <!-- Cards inyectadas por JS (vacunas y turnos) -->
+              </div>
+            </div>
+            <!-- Turnos pendientes solicitados -->
+            <div id="turnosPendientesList" style="display:none;">
+              <h4 style="margin:1.5rem 0 0.75rem 0; color:var(--fg-muted); font-size:0.9rem; text-transform:uppercase; letter-spacing:0.05em;">Turnos solicitados</h4>
+              <div class="vacunas-grid" id="turnosPendientesGrid"></div>
+            </div>
+            <div id="vacunasEmpty" class="empty-state" style="display:none;">
+              <div class="empty-state__icon"><i class="fas fa-check-circle" aria-hidden="true"></i></div>
+              <h3>Al día con todo</h3>
+              <p>No hay vacunas, controles ni turnos pendientes en este momento.</p>
+            </div>
+            <div id="vacunasError" class="alert alert-error" style="display:none;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel de detalle de paciente -->
+      <div id="panelPaciente" class="patient-detail-panel" role="dialog" aria-modal="true" aria-label="Detalle del paciente">
+        <div class="patient-detail__backdrop" id="panelBackdrop"></div>
+        <div class="patient-detail__container" view-transition-name="paciente-detail">
+          <div class="patient-detail__header">
+            <h3><i class="fas fa-user-md" aria-hidden="true"></i> Detalle del Paciente</h3>
+            <button class="patient-detail__close" id="btnClosePanel" aria-label="Cerrar detalle">
+              <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="patient-detail__body">
+            <div class="patient-detail__row">
+              <kbd id="detCode">—</kbd>
+              <span id="detNombre">—</span>
+            </div>
+            <div class="patient-detail__row">
+              <span>Especie:</span> <span id="detEspecie">—</span>
+            </div>
+            <div class="patient-detail__row">
+              <span>Raza:</span> <span id="detRaza">—</span>
+            </div>
+            <div class="patient-detail__row">
+              <span>Edad:</span> <span id="detEdad">—</span> años
+            </div>
+            <div class="patient-detail__row">
+              <span>Dueño:</span> <span id="detDuenio">—</span>
+            </div>
+            <div class="patient-detail__row">
+              <span>Teléfono:</span> <span id="detTelefono">—</span>
+            </div>
+          </div>
+          <div class="patient-detail__actions">
+            <button class="btn btn-outline btn-sm" id="btnEditarDesdePanel">Editar</button>
+            <button class="btn btn-outline btn-sm btn-danger" id="btnEliminarDesdePanel">Eliminar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sacar Turno -->
+      <section id="tab-turno" class="tab-panel reveal">
+        <div class="card">
+          <div class="card__header">
+            <h3><i class="fas fa-calendar-check" aria-hidden="true"></i> Sacar Turno</h3>
+            <span class="badge badge-info">Nueva cita veterinaria</span>
+          </div>
+          <div class="card__body">
+            <!-- Resumen de confirmación (se muestra tras enviar) -->
+            <div id="turnoConfirm" class="turno-confirm" style="display:none;">
+              <div class="turno-confirm__header">
+                <i class="fas fa-check-circle" aria-hidden="true"></i>
+                <h4>Turno solicitado</h4>
+              </div>
+              <div class="turno-confirm__resumen">
+                <p><strong>Mascota:</strong> <span id="resMascota">—</span></p>
+                <p><strong>Dueño:</strong> <span id="resDuenio">—</span></p>
+                <p><strong>Teléfono:</strong> <span id="resTelefono">—</span></p>
+                <p><strong>Especie:</strong> <span id="resEspecie">—</span></p>
+                <p><strong>Motivo:</strong> <span id="resMotivo">—</span></p>
+                <p><strong>Fecha:</strong> <span id="resFecha">—</span></p>
+                <p><strong>Horario:</strong> <span id="resHorario">—</span></p>
+                <p><strong>Veterinario:</strong> <span id="resVeterinario">—</span></p>
+                <p><strong>Observaciones:</strong> <span id="resObs">—</span></p>
+              </div>
+              <div class="turno-confirm__actions">
+                <button class="btn btn-outline" type="button" id="btnTurnoNuevo">
+                  <i class="fas fa-plus" aria-hidden="true"></i> Solicitar otro turno
+                </button>
+                <button class="btn btn-primary" type="button" id="btnTurnoCerrar">
+                  <i class="fas fa-times" aria-hidden="true"></i> Cerrar
+                </button>
+              </div>
+              <p class="turno-confirm__nota">
+                Recibirás una confirmación por email/whatsapp. El turno queda sujeto a confirmación
+                por parte de la clínica.
+              </p>
+            </div>
+
+            <!-- Formulario de turno -->
+            <form id="formTurno" novalidate class="form-turno">
+              <div class="form-turno__grupo">
+                <div class="form-group">
+                  <label class="form-label">Nombre del dueño <span class="req">*</span></label>
+                  <input type="text" id="tDuenio" class="form-input" placeholder="Ej: María López" />
+                  <small class="form-error" id="errT_Duenio"></small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Teléfono de contacto <span class="req">*</span>
+                    <small class="form-hint">Ej: 300 123 4567</small>
+                  </label>
+                  <input type="tel" id="tTelefono" class="form-input" placeholder="Ej: 300 123 4567" inputmode="numeric" />
+                  <small class="form-error" id="errT_Telefono"></small>
+                </div>
+              </div>
+              <div class="form-turno__grupo">
+                <div class="form-group">
+                  <label class="form-label">Nombre de la mascota <span class="req">*</span></label>
+                  <input type="text" id="tMascota" class="form-input" placeholder="Ej: Toby" />
+                  <small class="form-error" id="errT_Mascota"></small>
+                </div>
+              </div>
+              <div class="form-turno__grupo">
+                <div class="form-group">
+                  <label class="form-label">Tipo de animal <span class="req">*</span></label>
+                  <select id="tEspecie" class="form-input">
+                    <option value="">Seleccionar</option>
+                    <option>Perro</option>
+                    <option>Gato</option>
+                    <option>Conejo</option>
+                    <option>Ave</option>
+                    <option>Reptil</option>
+                    <option>Otro</option>
+                  </select>
+                  <small class="form-error" id="errT_Especie"></small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Motivo de la consulta <span class="req">*</span></label>
+                  <select id="tMotivo" class="form-input">
+                    <option value="">Seleccionar</option>
+                    <option>Consulta general</option>
+                    <option>Vacunación</option>
+                    <option>Cirugía</option>
+                    <option>Desparasitación</option>
+                    <option>Emergencia</option>
+                    <option>Control</option>
+                    <option>Otro</option>
+                  </select>
+                  <small class="form-error" id="errT_Motivo"></small>
+                </div>
+              </div>
+              <div class="form-turno__grupo">
+                <div class="form-group">
+                  <label class="form-label">Fecha preferida <span class="req">*</span></label>
+                  <input type="date" id="tFecha" class="form-input" />
+                  <small class="form-error" id="errT_Fecha"></small>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Horario preferido <span class="req">*</span></label>
+                  <select id="tHorario" class="form-input">
+                    <option value="">Seleccionar</option>
+                    <option value="Mañana">Mañana (8:00 - 12:00)</option>
+                    <option value="Tarde">Tarde (14:00 - 18:00)</option>
+                    <option value="Noche">Noche (18:00 - 21:00)</option>
+                  </select>
+                  <small class="form-error" id="errT_Horario"></small>
+                </div>
+              </div>
+              <div class="form-turno__grupo">
+                <div class="form-group">
+                  <label class="form-label">Veterinario preferido <span class="form-hint">(opcional)</span></label>
+                  <select id="tVeterinario" class="form-input">
+                    <option value="">Ninguna preferencia</option>
+                    <option value="Dra. Ana Martínez">Dra. Ana Martínez — Medicina general</option>
+                    <option value="Dr. Carlos Ruiz">Dr. Carlos Ruiz — Cirugía</option>
+                    <option value="Dra. Sofía López">Dra. Sofía López — Vacunación</option>
+                    <option value="Dr. Miguel Torres">Dr. Miguel Torres — Emergencias</option>
+                    <option value="Dra. Elena Gómez">Dra. Elena Gómez — Controles</option>
+                  </select>
+                  <small class="form-error" id="errT_Veterinario"></small>
+                  <div id="turnoDisponibilidad" class="turno-disponibilidad" style="display:none;"></div>
+                </div>
+              </div>
+              <div class="form-group full-width">
+                <label class="form-label">Observaciones <span class="form-hint">(opcional)</span></label>
+                <textarea id="tObservaciones" class="form-input textarea" rows="3" placeholder="Alergias, medicación actual, síntomas..."></textarea>
+                <small class="form-error" id="errT_Observaciones"></small>
+              </div>
+
+              <div class="form-turno__actions">
+                <button type="button" class="btn btn-outline" id="btnTurnoLimpiar">
+                  <i class="fas fa-eraser" aria-hidden="true"></i> Cancelar / Limpiar
+                </button>
+                <button type="submit" class="btn btn-primary btn-block" id="btnTurnoSubmit">
+                  <i class="fas fa-calendar-plus" aria-hidden="true"></i> Solicitar Turno
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer class="page-footer">
+        <p>Sistema Veterinario &middot; Gestión de pacientes de la clínica</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Modal Registrar Paciente -->
+  <div class="modal" id="modalRegister">
+    <div class="modal__overlay"></div>
+    <div class="modal__container">
+      <div class="modal__header">
+        <h3><i class="fas fa-user-plus" aria-hidden="true"></i> Registrar Nuevo Paciente</h3>
+        <button class="modal__close" id="btnCloseModal">&times;</button>
+      </div>
+      <div class="modal__body">
+        <form id="formRegister" novalidate>
+          <div class="form-group">
+            <label class="form-label">Código <span class="req">*</span> <small class="form-hint">(se asigna automáticamente)</small></label>
+            <input type="text" id="regCode" class="form-input" readonly maxlength="10" />
+            <small class="form-error" id="errRegCode"></small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nombre del Paciente <span class="req">*</span></label>
+            <input type="text" id="regName" class="form-input" placeholder="Ej: Toby" />
+            <small class="form-error" id="errRegName"></small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Edad <span class="req">*</span></label>
+            <input type="number" id="regAge" class="form-input" placeholder="Ej: 3" min="0" />
+            <small class="form-error" id="errRegAge"></small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Especie</label>
+            <select id="regSpecies" class="form-input">
+              <option value="">Seleccionar</option>
+              <option>Perro</option>
+              <option>Gato</option>
+              <option>Ave</option>
+              <option>Roedor</option>
+              <option>Otro</option>
+            </select>
+            <small class="form-error" id="errRegSpecies"></small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Raza</label>
+            <input type="text" id="regBreed" class="form-input" placeholder="Ej: Labrador" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Dueño <span class="req">*</span></label>
+            <input type="text" id="regOwner" class="form-input" placeholder="Ej: María López" />
+            <small class="form-error" id="errRegOwner"></small>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Teléfono</label>
+            <input type="text" id="regPhone" class="form-input" placeholder="Ej: 300 123 4567" />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="btnRegSubmit">
+            <i class="fas fa-save" aria-hidden="true"></i> Guardar Paciente
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+
+</html>

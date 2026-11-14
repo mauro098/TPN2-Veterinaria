@@ -34,25 +34,38 @@ python main.py
 
 ```
 TPN2-Veterinaria/
-├── modelos/
+├── api/
 │   ├── __init__.py
-│   └── paciente.py                  # Clase Libro (dominio)
+│   ├── esquemas.py
+│   └── rutas.py
+├── datos/
+│   └── veterinaria.db
 ├── estructuras/
 │   ├── __init__.py
-│   ├── arbol_categorias.py       # Árbol general n-ario
-│   └── arbol_bst.py              # Árbol binario de búsqueda
+│   ├── arbol_bst.py
+│   └── arbol_categorias.py
+├── modelos/
+│   ├── __init__.py
+│   └── paciente.py
 ├── servicios/
 │   ├── __init__.py
-│   ├── busqueda.py               # Búsquedas secuenciales
-│   ├── gestor_pacientes.py       # Modulo de gestion de pacientes
-│   └── comparador.py             # Comparación de eficiencia
+│   ├── busqueda.py
+│   ├── comparador.py
+│   ├── gestor_pacientes.py
+│   ├── gestor_vacunas.py
+│   └── persistencia.py
 ├── ui/
 │   ├── __init__.py
-│   └── menu.py                   # Menú de consola
-├── main.py                       # Punto de entrada
-├── README.md                     # Este archivo
-├── USO-DE-IA.md                  # Declaración de uso de IA
-└── .gitignore
+│   └── menu.py
+├── web/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
+├── .gitignore
+├── main.py
+├── README.md
+├── requirements.txt
+└── USO-DE-IA.md
 ```
 
 ## Funcionalidades y estructuras usadas

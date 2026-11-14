@@ -1,9 +1,26 @@
 from modelos.paciente import Paciente  
+from servicios.persistencia import (
+    inicializar_db,
+    obtener_todos_los_pacientes,
+    guardar_paciente,
+    actualizar_paciente,
+    eliminar_paciente,
+)
+
 
 class GestorPacientes:
     def __init__(self):
         self.lista_pacientes = []
-        self.cargar_datos_prueba() 
+        inicializar_db()
+        self.cargar_desde_bd()
+        if not self.lista_pacientes:
+            self.cargar_datos_prueba()
+            for p in self.lista_pacientes:
+                guardar_paciente(p)
+
+    def cargar_desde_bd(self):
+        """Carga los pacientes desde la base de datos SQLite."""
+        self.lista_pacientes = obtener_todos_los_pacientes()
 
     def cargar_datos_prueba(self):
         p1 = Paciente("001", "Firulais", "Perro", "Caniche", 3, "Carlos")
@@ -44,33 +61,45 @@ class GestorPacientes:
         for p in lista_temporal:
             self.lista_pacientes.append(p)
 
-    def insertar_paciente(self, codigo, nombre, especie, raza, edad, duenio):
-        """Agrega un nuevo paciente a la lista."""
-        # Generar un código único para el nuevo paciente
-        if self.lista_pacientes:
-            codigo = f"{len(self.lista_pacientes) + 1:03d}"
-        else:
-            codigo = "001"
-        nuevo = Paciente(codigo, nombre, especie, raza, edad, duenio)
-        self.lista_pacientes.append(nuevo)
-        print(f"¡Paciente {nombre} agregado con éxito!")
+    def insertar_paciente(self, codigo, nombre, especie, raza, edad, duenio, telefono=None):
+        """Agrega un nuevo paciente a la lista y lo persiste en la BD."""
+        for p in self.lista_pacientes:
+            if p.codigo == codigo:
+                print(f"Ya existe un paciente con el código {codigo}.")
+                return False
 
-    def modificar_paciente(self, codigo, nueva_edad, nuevo_duenio):
+        nuevo = Paciente(codigo, nombre, especie, raza, edad, duenio, telefono)
+        self.lista_pacientes.append(nuevo)
+        guardar_paciente(nuevo)
+        print(f"¡Paciente {nombre} agregado con éxito!")
+        return True
+
+    def modificar_paciente(self, codigo, nueva_edad, nuevo_duenio, telefono=None, nuevo_nombre=None, nueva_especie=None, nueva_raza=None):
         """Busca un paciente por código y modifica sus datos."""
         for paciente in self.lista_pacientes:
             if paciente.codigo == codigo:
                 paciente.edad = nueva_edad
                 paciente.duenio = nuevo_duenio
+                if telefono is not None:
+                    paciente.telefono = telefono
+                if nuevo_nombre is not None:
+                    paciente.nombre = nuevo_nombre
+                if nueva_especie is not None:
+                    paciente.especie = nueva_especie
+                if nueva_raza is not None:
+                    paciente.raza = nueva_raza
+                actualizar_paciente(codigo, paciente)
                 print("¡Datos actualizados correctamente!")
                 return True
         print("No se encontró un paciente con ese código.")
         return False
 
     def eliminar_paciente(self, codigo):
-        """Elimina un paciente de la lista usando su código."""
+        """Elimina un paciente de la lista y de la BD."""
         for paciente in self.lista_pacientes:
             if paciente.codigo == codigo:
                 self.lista_pacientes.remove(paciente)
+                eliminar_paciente(codigo)
                 print("¡Paciente eliminado de la lista!")
                 return True
         print("No se encontró un paciente con ese código.")
