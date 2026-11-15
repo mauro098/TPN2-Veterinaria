@@ -24,7 +24,7 @@ herramienta de IA durante el desarrollo del trabajo.
 | Nº | Herramienta usada | ¿Para qué se usó?           | Archivo/s afectado/s | ¿Se modificó la salida? | ¿Qué se modificó y por qué? |
 |----|-------------------|------------------------------|----------------------|-------------------------|-----------------------------|
 | 1  | Google Gemini     | generar estructura           | arbol_categorias.py  | Si                      | se adapto codigo            |
-| 2  |                   |                              |                      |                         |                             |
+| 2  |  OpenCode                 | creacion de FrontEnd y complementacion de API                             |                      |                         |                             |
 | 3  |                   |                              |                      |                         |                             |
 | 4  |                   |                              |                      |                         |                             |
 | 5  |                   |                              |                      |                         |                             |
