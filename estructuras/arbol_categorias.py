@@ -6,13 +6,12 @@ class CatVet:
         self.subcats = []
         self.elementos = []
 
-    # Corregido: nombre unificado a 'agregar_subcat' y atributo 'self.subcats'
-    def agregar_subcat(self, nombre_sub: str) -> "CatVet":
+   def agregar_subcat(self, nombre_sub: str) -> "CatVet":
         nuevo = CatVet(nombre_sub)
         self.subcats.append(nuevo)
         return nuevo
 
-    # Corregido: atributo 'self.subcats'
+   
     def es_hoja(self) -> bool:
         return len(self.subcats) == 0
 
@@ -20,7 +19,7 @@ class CatVet:
         prefijo = "    " * nivel
         marcador = "📄" if self.es_hoja() else "📁"
         cantidad = len(self.elementos)
-        # Aprovechamos la variable 'cantidad' en el print
+        
         print(f"{prefijo}{marcador} {self.nombre} ({cantidad})")
 
         for sub in self.subcats:
@@ -49,7 +48,7 @@ class CatVet:
         return 1 + max(sub.altura() for sub in self.subcats)
 
     def listar_todos(self) -> list:
-        todos = list(self.elementos)  # copia de los propios
+        todos = list(self.elementos)  
         for sub in self.subcats:
             todos.extend(sub.listar_todos())
         return todos
@@ -68,7 +67,7 @@ def construir_arbol_categorias() -> CatVet:
     gato.agregar_subcat("Pelaje medio")
     gato.agregar_subcat("Pelaje largo")
 
-    # Diferenciamos los nombres para evitar que buscar_categoria los confunda con Perros
+    
     conejo = raiz.agregar_subcat("Conejos")
     conejo.agregar_subcat("Conejo - Raza chica")
     conejo.agregar_subcat("Conejo - Raza mediana")
